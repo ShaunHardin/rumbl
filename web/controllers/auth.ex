@@ -1,4 +1,7 @@
 defmodule Rumbl.Auth do
+  @moduledoc """
+  Handles login/logout and authentication
+  """
   import Plug.Conn
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
   import Phoenix.Controller

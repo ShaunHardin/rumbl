@@ -1,4 +1,7 @@
 defmodule Rumbl.Category do
+  @moduledoc """
+  Model for Rumbl video categories
+  """
   use Rumbl.Web, :model
 
   schema "categories" do

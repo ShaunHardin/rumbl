@@ -1,4 +1,7 @@
 defmodule Rumbl.Video do
+  @moduledoc """
+  Model for videos posted to Rumbl
+  """
   use Rumbl.Web, :model
 
   schema "videos" do

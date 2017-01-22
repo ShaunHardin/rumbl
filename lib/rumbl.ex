@@ -1,5 +1,9 @@
 defmodule Rumbl do
+  @moduledoc """
+  Starting point for Rumbl(?)
+  """
   use Application
+  alias Rumbl.Endpoint
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
@@ -11,8 +15,9 @@ defmodule Rumbl do
       # Start the Ecto repository
       supervisor(Rumbl.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(Rumbl.Endpoint, []),
-      # Start your own worker by calling: Rumbl.Worker.start_link(arg1, arg2, arg3)
+      supervisor(Endpoint, []),
+      # Start your own worker by calling:
+      # Rumbl.Worker.start_link(arg1, arg2, arg3)
       # worker(Rumbl.Worker, [arg1, arg2, arg3]),
     ]
 
@@ -25,7 +30,7 @@ defmodule Rumbl do
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    Rumbl.Endpoint.config_change(changed, removed)
+    Endpoint.config_change(changed, removed)
     :ok
   end
 end

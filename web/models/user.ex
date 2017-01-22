@@ -1,5 +1,9 @@
 defmodule Rumbl.User do
+  @moduledoc """
+  Model for Rumbl users
+  """
   use Rumbl.Web, :model
+  alias Comeonin.Bcrypt
 
   schema "users" do
     field :name, :string
@@ -28,7 +32,7 @@ defmodule Rumbl.User do
   def put_pass_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
-        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+        put_change(changeset, :password_hash, Bcrypt.hashpwsalt(pass))
       _ ->
         changeset
     end
