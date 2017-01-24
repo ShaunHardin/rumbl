@@ -67,4 +67,31 @@ defmodule Rumbl.AuthTest do
     conn = Auth.call(conn, Repo)
     assert conn.assigns.current_user == nil
   end
+
+  test "login with a valid username and pass", %{conn: conn} do
+    username = "me"
+    password = "secret"
+    user = insert_user(username: username, password: password)
+    {:ok, conn} =
+      Auth.login_by_username_and_pass(conn, username, password, repo: Repo)
+
+    assert conn.assigns.current_user.id == user.id
+  end
+
+  test "login with a not found user", %{conn: conn} do
+    {:error, :not_found, conn} =
+      Auth.login_by_username_and_pass(conn, "nobody", "nothing", repo: Repo)
+
+    assert conn.assigns.current_user == nil
+  end
+
+  test "login with password mismatch", %{conn: conn} do
+    username = "me"
+    password = "secret"
+    _user = insert_user(username: username, password: password)
+    {:error, :unauthorized, conn} =
+      Auth.login_by_username_and_pass(conn, username, "wrong", repo: Repo)
+
+    assert conn.assigns.current_user == nil
+  end
 end
